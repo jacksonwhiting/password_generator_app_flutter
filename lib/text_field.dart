@@ -6,6 +6,7 @@ class CustInputField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      autofocus: true,
       decoration: const InputDecoration(
         fillColor: Color(0xFF24232C),
         filled: true,
