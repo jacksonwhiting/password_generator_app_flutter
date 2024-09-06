@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class SliderExample extends StatefulWidget {
-  const SliderExample({super.key});
+  const SliderExample({super.key, required this.onSliderChange});
+
+  final void Function(double slideCharLength) onSliderChange;
 
   @override
   State<SliderExample> createState() => _SliderExampleState();
@@ -10,18 +12,22 @@ class SliderExample extends StatefulWidget {
 class _SliderExampleState extends State<SliderExample> {
   double _currentSliderValue = 10;
 
+  void setCharLength(double value) {
+    widget.onSliderChange(value);
+    setState(() {
+      _currentSliderValue = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Slider(
       value: _currentSliderValue,
       max: 20,
-      // divisions: 5,
-      label: _currentSliderValue.round().toString(),
+      label: _currentSliderValue.toString(),
       inactiveColor: Theme.of(context).colorScheme.surface,
       onChanged: (double value) {
-        setState(() {
-          _currentSliderValue = value;
-        });
+        setCharLength(value);
       },
     );
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-
-import 'package:password_generator_app_flutter/text_field.dart';
-import 'package:password_generator_app_flutter/slider.dart';
+import 'package:password_generator_app_flutter/character_field.dart';
+import 'package:password_generator_app_flutter/cust_input_field.dart';
+import 'package:password_generator_app_flutter/custom_slider_track_shape.dart';
 
 var kColorScheme = ColorScheme.fromSeed(
   seedColor: const Color.fromARGB(255, 59, 181, 146),
@@ -9,7 +9,7 @@ var kColorScheme = ColorScheme.fromSeed(
 
 var kDarkColorScheme = ColorScheme.fromSeed(
   brightness: Brightness.dark,
-  seedColor: const Color(0xFFA4FFAF),
+  seedColor: const Color.fromARGB(255, 1, 224, 50),
 );
 
 void main() {
@@ -25,6 +25,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       darkTheme: ThemeData.dark().copyWith(
         colorScheme: kDarkColorScheme,
+        sliderTheme: ThemeData().sliderTheme.copyWith(
+              trackShape: CustomTrackShape(),
+            ),
       ),
       theme: ThemeData().copyWith(
         colorScheme: kColorScheme,
@@ -58,43 +61,11 @@ class MyHomePage extends StatelessWidget {
             0, 20, 0, 0), // left, top, end, bottom
         padding: const EdgeInsetsDirectional.symmetric(
             horizontal: 10), // horizontal, vertical
-        child: Column(
-          children: [
-            const CustInputField(),
-            const SizedBox(height: 20),
-            Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                decoration: const BoxDecoration(color: Color(0xFF24232C)),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Text('Character Length',
-                            style: TextStyle(
-                                fontSize: Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge
-                                    ?.fontSize,
-                                fontWeight: FontWeight.w700)),
-                        const Spacer(),
-                        Text(
-                          '10',
-                          style: TextStyle(
-                              color: Theme.of(context).colorScheme.primary,
-                              fontSize: Theme.of(context)
-                                  .textTheme
-                                  .headlineMedium
-                                  ?.fontSize,
-                              fontWeight: FontWeight.w600),
-                        ),
-                      ],
-                    ),
-                    const SliderExample(),
-                  ],
-                )),
-          ],
-        ),
+        child: const Column(children: [
+          CustInputField(),
+          SizedBox(height: 20),
+          Characterfield(),
+        ]),
       ),
     );
   }
