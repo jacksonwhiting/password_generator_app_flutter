@@ -44,7 +44,7 @@ class _CustInputFieldState extends State<CustInputField> {
                     color: Theme.of(context).colorScheme.primary)),
           )),
       style: TextStyle(
-        fontSize: Theme.of(context).textTheme.titleLarge?.fontSize,
+        fontSize: Theme.of(context).textTheme.headlineSmall?.fontSize,
         fontWeight: FontWeight.w600,
       ),
     );

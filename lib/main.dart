@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:password_generator_app_flutter/character_field.dart';
+
+import 'package:password_generator_app_flutter/character_length_field.dart';
 import 'package:password_generator_app_flutter/cust_input_field.dart';
 import 'package:password_generator_app_flutter/custom_slider_track_shape.dart';
+import 'package:password_generator_app_flutter/checkbox_field.dart';
 
 var kColorScheme = ColorScheme.fromSeed(
   seedColor: const Color.fromARGB(255, 59, 181, 146),
@@ -46,6 +48,12 @@ class MyApp extends StatelessWidget {
   }
 }
 
+int characterLength = 10;
+bool includeUppercase = true;
+bool includeLowercase = true;
+bool includeNumbers = true;
+bool includeSymbols = true;
+
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
 
@@ -61,10 +69,39 @@ class MyHomePage extends StatelessWidget {
             0, 20, 0, 0), // left, top, end, bottom
         padding: const EdgeInsetsDirectional.symmetric(
             horizontal: 10), // horizontal, vertical
-        child: const Column(children: [
-          CustInputField(),
-          SizedBox(height: 20),
-          Characterfield(),
+        child: Column(children: [
+          const CustInputField(),
+          const SizedBox(height: 20),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+            decoration: const BoxDecoration(
+              color: Color(0xFF24232C),
+            ),
+            child: Column(
+              children: [
+                CharacterLengthField(
+                  passCharacterLength: (charLength) =>
+                      characterLength = charLength,
+                ),
+                CheckboxListTileEx(
+                  title: 'Include Uppercase Letters',
+                  handleCheckboxChange: (value) => includeUppercase = value,
+                ),
+                CheckboxListTileEx(
+                  title: 'Include Lowercase Letters',
+                  handleCheckboxChange: (value) => includeLowercase = value,
+                ),
+                CheckboxListTileEx(
+                  title: 'Include Numbers',
+                  handleCheckboxChange: (value) => includeNumbers = value,
+                ),
+                CheckboxListTileEx(
+                  title: 'Include Symbols',
+                  handleCheckboxChange: (value) => includeUppercase = value,
+                ),
+              ],
+            ),
+          ),
         ]),
       ),
     );
