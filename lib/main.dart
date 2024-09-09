@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-
 import 'package:password_generator_app_flutter/character_length_field.dart';
 import 'package:password_generator_app_flutter/cust_input_field.dart';
 import 'package:password_generator_app_flutter/custom_slider_track_shape.dart';
 import 'package:password_generator_app_flutter/checkbox_field.dart';
+import 'package:password_generator_app_flutter/strength_meter.dart';
 
 var kColorScheme = ColorScheme.fromSeed(
   seedColor: const Color.fromARGB(255, 59, 181, 146),
@@ -99,6 +99,7 @@ class MyHomePage extends StatelessWidget {
                   title: 'Include Symbols',
                   handleCheckboxChange: (value) => includeUppercase = value,
                 ),
+                const StrengthMeter(),
               ],
             ),
           ),
