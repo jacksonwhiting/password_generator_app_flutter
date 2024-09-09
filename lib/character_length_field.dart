@@ -14,7 +14,7 @@ class CharacterLengthField extends StatefulWidget {
 }
 
 class _CharacterFieldState extends State<CharacterLengthField> {
-  int charLength = 10;
+  int charLength = 14;
 
   void setCharLength(double value) {
     setState(() {

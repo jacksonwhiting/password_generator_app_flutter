@@ -10,7 +10,7 @@ class SliderExample extends StatefulWidget {
 }
 
 class _SliderExampleState extends State<SliderExample> {
-  double _currentSliderValue = 10;
+  double _currentSliderValue = 14;
 
   void setCharLength(double value) {
     widget.onSliderChange(value);
@@ -23,6 +23,7 @@ class _SliderExampleState extends State<SliderExample> {
   Widget build(BuildContext context) {
     return Slider(
       value: _currentSliderValue,
+      min: 8,
       max: 20,
       label: _currentSliderValue.toString(),
       inactiveColor: Theme.of(context).colorScheme.surface,

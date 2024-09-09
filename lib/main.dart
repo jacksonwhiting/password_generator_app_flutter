@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:password_generator_app_flutter/button_generate.dart';
 import 'package:password_generator_app_flutter/character_length_field.dart';
 import 'package:password_generator_app_flutter/cust_input_field.dart';
 import 'package:password_generator_app_flutter/custom_slider_track_shape.dart';
@@ -48,7 +49,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-int characterLength = 10;
+int characterLength = 14;
 bool includeUppercase = true;
 bool includeLowercase = true;
 bool includeNumbers = true;
@@ -99,7 +100,10 @@ class MyHomePage extends StatelessWidget {
                   title: 'Include Symbols',
                   handleCheckboxChange: (value) => includeUppercase = value,
                 ),
+                const SizedBox(height: 20),
                 const StrengthMeter(),
+                const SizedBox(height: 20),
+                const GenerateButton(),
               ],
             ),
           ),

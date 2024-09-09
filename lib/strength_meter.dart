@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:password_generator_app_flutter/strength_container.dart';
 
 class StrengthMeter extends StatefulWidget {
   const StrengthMeter({super.key});
@@ -13,7 +14,6 @@ class _StrengthMeterState extends State<StrengthMeter> {
     return Container(
       decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface),
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-      margin: const EdgeInsets.only(top: 15),
       child: Row(children: [
         Text(
           'STRENGTH',
@@ -32,43 +32,23 @@ class _StrengthMeterState extends State<StrengthMeter> {
         const SizedBox(
           width: 15,
         ),
-        Container(
-            width: 10,
-            height: 30,
-            decoration: BoxDecoration(
-              color: Colors.amber[300],
-            )),
+        StrengthContainer(color: Colors.amber[300]),
         const SizedBox(
           width: 8,
         ),
-        Container(
-            width: 10,
-            height: 30,
-            decoration: BoxDecoration(
-              color: Colors.amber[300],
-            )),
+        StrengthContainer(color: Colors.amber[300]),
         const SizedBox(
           width: 8,
         ),
-        Container(
-            width: 10,
-            height: 30,
-            decoration: BoxDecoration(
-              color: Colors.amber[300],
-            )),
+        StrengthContainer(color: Colors.amber[300]),
         const SizedBox(
           width: 8,
         ),
-        Container(
-            width: 10,
-            height: 30,
-            decoration: BoxDecoration(
-              color: Colors.amber[300],
-            )),
+        StrengthContainer(color: Colors.amber[300]),
         const SizedBox(
           width: 8,
         ),
       ]),
-      
+    );
   }
 }
