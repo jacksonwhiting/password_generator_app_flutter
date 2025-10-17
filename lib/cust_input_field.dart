@@ -1,23 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class CustInputField extends StatefulWidget {
-  const CustInputField({super.key});
+class CustInputField extends StatelessWidget {
+  final TextEditingController controller;
 
-  @override
-  State<CustInputField> createState() => _CustInputFieldState();
-}
+  const CustInputField({super.key, required this.controller});
 
-class _CustInputFieldState extends State<CustInputField> {
-  final controller = TextEditingController();
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose;
-  }
-
-  void copyText() {
+  void _copyText(BuildContext context) {
     final text = controller.text;
     Clipboard.setData(ClipboardData(text: text));
     ScaffoldMessenger.of(context).showSnackBar(
@@ -39,7 +28,7 @@ class _CustInputFieldState extends State<CustInputField> {
           suffixIcon: Padding(
             padding: const EdgeInsetsDirectional.only(end: 10),
             child: IconButton(
-                onPressed: copyText,
+                onPressed: () => _copyText(context),
                 icon: Icon(Icons.copy,
                     color: Theme.of(context).colorScheme.primary)),
           )),
