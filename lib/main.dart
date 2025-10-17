@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:password_generator_app_flutter/button_generate.dart';
 import 'package:password_generator_app_flutter/character_length_field.dart';
@@ -49,14 +51,94 @@ class MyApp extends StatelessWidget {
   }
 }
 
-int characterLength = 14;
-bool includeUppercase = true;
-bool includeLowercase = true;
-bool includeNumbers = true;
-bool includeSymbols = true;
-
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  final TextEditingController _passwordController = TextEditingController();
+  int _characterLength = 14;
+  bool _includeUppercase = true;
+  bool _includeLowercase = true;
+  bool _includeNumbers = true;
+  bool _includeSymbols = true;
+
+  @override
+  void dispose() {
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  void _updateCharacterLength(int charLength) {
+    setState(() {
+      _characterLength = charLength;
+    });
+  }
+
+  void _toggleUppercase(bool value) {
+    setState(() {
+      _includeUppercase = value;
+    });
+  }
+
+  void _toggleLowercase(bool value) {
+    setState(() {
+      _includeLowercase = value;
+    });
+  }
+
+  void _toggleNumbers(bool value) {
+    setState(() {
+      _includeNumbers = value;
+    });
+  }
+
+  void _toggleSymbols(bool value) {
+    setState(() {
+      _includeSymbols = value;
+    });
+  }
+
+  void _generatePassword() {
+    final buffer = StringBuffer();
+    var allowedCharacters = '';
+
+    if (_includeUppercase) {
+      allowedCharacters += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    }
+    if (_includeLowercase) {
+      allowedCharacters += 'abcdefghijklmnopqrstuvwxyz';
+    }
+    if (_includeNumbers) {
+      allowedCharacters += '0123456789';
+    }
+    if (_includeSymbols) {
+      allowedCharacters += r'!@#$%^&*()-_=+[]{}|;:,.<>?';
+    }
+
+    if (allowedCharacters.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Select at least one character type to generate.'),
+        ),
+      );
+      return;
+    }
+
+    final random = Random.secure();
+
+    for (var i = 0; i < _characterLength; i++) {
+      final index = random.nextInt(allowedCharacters.length);
+      buffer.write(allowedCharacters[index]);
+    }
+
+    setState(() {
+      _passwordController.text = buffer.toString();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +153,7 @@ class MyHomePage extends StatelessWidget {
         padding: const EdgeInsetsDirectional.symmetric(
             horizontal: 10), // horizontal, vertical
         child: Column(children: [
-          const CustInputField(),
+          CustInputField(controller: _passwordController),
           const SizedBox(height: 20),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -81,29 +163,28 @@ class MyHomePage extends StatelessWidget {
             child: Column(
               children: [
                 CharacterLengthField(
-                  passCharacterLength: (charLength) =>
-                      characterLength = charLength,
+                  passCharacterLength: _updateCharacterLength,
                 ),
                 CheckboxListTileEx(
                   title: 'Include Uppercase Letters',
-                  handleCheckboxChange: (value) => includeUppercase = value,
+                  handleCheckboxChange: _toggleUppercase,
                 ),
                 CheckboxListTileEx(
                   title: 'Include Lowercase Letters',
-                  handleCheckboxChange: (value) => includeLowercase = value,
+                  handleCheckboxChange: _toggleLowercase,
                 ),
                 CheckboxListTileEx(
                   title: 'Include Numbers',
-                  handleCheckboxChange: (value) => includeNumbers = value,
+                  handleCheckboxChange: _toggleNumbers,
                 ),
                 CheckboxListTileEx(
                   title: 'Include Symbols',
-                  handleCheckboxChange: (value) => includeUppercase = value,
+                  handleCheckboxChange: _toggleSymbols,
                 ),
                 const SizedBox(height: 20),
                 const StrengthMeter(),
                 const SizedBox(height: 20),
-                const GenerateButton(),
+                GenerateButton(onGenerate: _generatePassword),
               ],
             ),
           ),
